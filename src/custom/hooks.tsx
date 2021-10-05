@@ -10,13 +10,15 @@ import React from 'react';
 
 const apiCall = ({
   endpoint,
+  options,
   method,
   payload,
   successCallback,
 }: ApiRequest): Promise<void> => {
   const body = payload ? JSON.stringify({ ...payload }) : null;
+  const mode = options?.cors ? options.cors : 'cors';
 
-  return fetch(endpoint, { method, headers, body })
+  return fetch(endpoint, { method, headers, body, mode })
     .then((response) => {
       if (response.ok) {
         return response.json();

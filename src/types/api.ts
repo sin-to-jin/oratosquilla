@@ -1,5 +1,6 @@
 type Option = {
-  waitMS: number;
+  waitMS?: number;
+  cors?: 'cors' | 'no-cors' | 'same-origin';
 };
 
 export interface ApiRequest {
