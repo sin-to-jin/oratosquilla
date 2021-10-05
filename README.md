@@ -15,3 +15,17 @@ yarn install
 
 1. Please open 'http://localhost:8080'
 2. When you click 'all' button, fetch express server api with "oratosquilla"
+
+## How to use
+
+```ts
+const [loading, api] = useApiCall({
+  endpoint: 'http://localhost:3001/api/human',
+});
+
+api.all({
+  successCallback: (response) => {
+    console.info(response);
+  },
+});
+```
