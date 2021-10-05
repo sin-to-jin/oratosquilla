@@ -4,9 +4,11 @@ fetch api wrapper on frontend react hooks.
 
 ## SetUp
 
+```sh
 git clone git@github.com:ogasawaraShinnosuke/oratosquilla.git
 cd oratosquilla
 yarn install
+```
 
 ## Started
 
