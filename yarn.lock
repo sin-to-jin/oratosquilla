@@ -1298,6 +1298,11 @@ async@^2.6.2:
   dependencies:
     lodash "^4.17.14"
 
+audit@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/audit/-/audit-0.0.6.tgz#fef17dd84af1dcd2a5633fd46d3b1adcb084bf3b"
+  integrity sha1-/vF92Erx3NKlYz/UbTsa3LCEvzs=
+
 babel-loader@^8.2.2:
   version "8.2.2"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.2.tgz#9363ce84c10c9a40e6c753748e1441b60c8a0b81"
