@@ -6,7 +6,7 @@ module.exports = (router, controller, resources, idName) => {
     controller.hasOwnProperty(actionName);
 
   if (able('index')) router.get(root, controller.index);
-  if (able('create')) router.port(root, controller.create);
+  if (able('create')) router.post(root, controller.create);
   if (able('show')) router.get(`${root}/${resource}`, controller.show);
   if (able('update')) router.patch(`${root}/${resource}`, controller.update);
   if (able('destroy')) router.delete(`${root}/${resource}`, controller.destroy);
