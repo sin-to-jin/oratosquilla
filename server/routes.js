@@ -1,19 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const api = require('./api.js');
 
-const api = (name, idName, controller) => {
-  const root = `/api/${name}`;
-  const action = controller || eval(name);
-  const resource = `:${idName || `${name}Id`}`;
-
-  router.get(root, action.index);
-  router.get(`${root}/${resource}`, action.show);
-};
-
-router.get('/healthcheck', (req, res) => {
-  res.send('ok');
-});
-
-api('human');
+api(router, require('./controllers/healthcheck.js'), ['index']);
+api(router, require('./controllers/human.js'));
+api(router, require('./controllers/animal.js'));
 
 module.exports = router;
