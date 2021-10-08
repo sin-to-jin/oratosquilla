@@ -1,4 +1,4 @@
-import { headers } from '@/constants/api';
+import { DEFAULT_CORS, headers } from '@/constants/api';
 import {
   ApiCollection,
   ApiMember,
@@ -16,7 +16,7 @@ const apiCall = ({
   successCallback,
 }: ApiRequest): Promise<void> => {
   const body = payload ? JSON.stringify({ ...payload }) : null;
-  const mode = options?.cors ? options.cors : 'cors';
+  const mode = options?.cors ? options.cors : DEFAULT_CORS;
 
   return fetch(endpoint, { method, headers, body, mode })
     .then((response) => {
@@ -54,16 +54,18 @@ export const useApiCall = ({
     method,
     payload,
     successCallback,
-  }: ApiRequest) => {
-    setLoading(true);
-    apiCall({
-      endpoint,
-      method,
-      payload,
-      successCallback,
-    }).finally(() => {
-      setTimeout(() => setLoading(false), options?.waitMS ?? 0);
-    });
+  }: ApiRequest): void => {
+    if (!loading) {
+      setLoading(true);
+      apiCall({
+        endpoint,
+        method,
+        payload,
+        successCallback,
+      }).finally(() => {
+        setTimeout(() => setLoading(false), options?.waitMS ?? 0);
+      });
+    }
   };
 
   const all = ({ successCallback }: Collection): void => {

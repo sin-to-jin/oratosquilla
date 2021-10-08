@@ -3,7 +3,7 @@ import React from 'react';
 
 const Main = () => {
   const [loading, api] = useApiCall({
-    endpoint: 'http://localhost:3001/api/human',
+    endpoint: `${process.env.BACKEND_HOST}/api/human`,
     options: { waitMS: 500, cors: 'no-cors' },
   });
   const [response, setResponse] = React.useState('');
