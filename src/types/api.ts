@@ -18,3 +18,14 @@ type ApiMember = ({ resourceId, payload, successCallback }: Member) => void;
 type ApiCollection = ({ payload, successCallback }: Collection) => void;
 
 export type { Collection, Member, ApiMember, ApiCollection };
+
+export type Action = 'index' | 'show';
+export type ApiName = {
+  name: 'healthcheck' | 'human' | 'animal';
+  resources?: Array<Action>;
+};
+
+export type Apis = Record<
+  ApiName['name'],
+  Record<'index', () => string> & Record<'show', (name: string) => string>
+>;

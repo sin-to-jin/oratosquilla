@@ -1,9 +1,11 @@
+import { Api } from '@/constants/api';
 import { useApiCall } from '@/custom/hooks';
 import React from 'react';
+import Inputs from './lib/Inputs';
 
 const Main = () => {
   const [loading, api] = useApiCall({
-    endpoint: `${process.env.BACKEND_HOST}/api/human`,
+    endpoint: Api.human.index(),
     options: { waitMS: 500, cors: 'no-cors' },
   });
   const [response, setResponse] = React.useState('');
@@ -24,6 +26,9 @@ const Main = () => {
       >
         all
       </button>
+      <br />
+      <br />
+      <Inputs />
     </div>
   );
 };
