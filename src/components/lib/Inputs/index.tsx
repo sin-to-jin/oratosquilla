@@ -1,57 +1,43 @@
 import React from 'react';
 import Button from '../Button';
 import InputText from './InputText';
+import { v4 as uuidv4 } from 'uuid';
 
 export type InputValue = {
-  index: number;
+  uuid: string;
   value: string;
 };
 
+export const create = (): InputValue => ({ uuid: uuidv4(), value: '' });
+
 const Inputs = (): React.ReactElement => {
-  const [inputLength, setInputLength] = React.useState(1);
-  const [inputValues, setInputValues] = React.useState<Array<InputValue>>([
-    { index: 1, value: '' },
-  ]);
-  const getInputValue = (index: number): InputValue => {
-    return inputValues.find((v) => v.index === index + 1) as InputValue;
-  };
-  const newInputValues = (index: number, value: string): Array<InputValue> => {
+  const [inputValues, setInputValues] = React.useState([create()]);
+
+  const update = (uuid: string, value: string) => {
     return inputValues.map((inputValue) => {
-      return inputValue.index === index + 1
-        ? { ...inputValue, value }
-        : inputValue;
+      return inputValue.uuid === uuid ? { ...inputValue, value } : inputValue;
     });
   };
-  const deleteInputValues = (index: number): Array<InputValue> => {
-    return inputValues.filter((v) => v.index !== index);
-  };
-
-  const incrementInput = () => {
-    const newIndex = inputLength + 1;
-    setInputLength(newIndex);
-    setInputValues([...inputValues, { index: newIndex, value: '' }]);
-  };
-  const decrementInput = () => {
-    setInputLength(inputLength - 1);
-    setInputValues(deleteInputValues(inputLength));
+  const destroy = (uuid: string) => {
+    return inputValues.filter((v) => v.uuid !== uuid);
   };
 
   return (
     <>
-      {[...Array(inputLength)].map((_, i) => {
+      {inputValues.map(({ uuid, value }) => {
         return (
-          <div key={i} style={{ alignItems: 'center', display: 'flex' }}>
+          <div key={uuid} style={{ alignItems: 'center', display: 'flex' }}>
             <InputText
-              value={getInputValue(i).value}
-              onChange={(e) =>
-                setInputValues(newInputValues(i, e.target.value))
-              }
+              value={value}
+              onChange={(e) => setInputValues(update(uuid, e.target.value))}
             />
-            <Button onClick={decrementInput}>-</Button>
+            <Button onClick={() => setInputValues(destroy(uuid))}>-</Button>
           </div>
         );
       })}
-      <Button onClick={incrementInput}>+</Button>
+      <Button onClick={() => setInputValues([...inputValues, create()])}>
+        +
+      </Button>
     </>
   );
 };
